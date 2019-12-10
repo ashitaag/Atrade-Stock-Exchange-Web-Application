@@ -1,0 +1,112 @@
+{% include "atrade/header.html" %}
+
+<style type="text/css">
+  
+  label{
+    color: black;
+    font-weight: bold;
+  }
+
+</style>
+<div id="page_content" style="padding-top: 10px;padding-left:10px;color:grey">
+  <h1>My Profile</h1>
+<hr/>
+<div class="container-fluid">
+
+  <div class="card">
+    <div class="card-body">
+  
+  <div class="row">
+    <div class="col-md-3"><br /></div>
+    <div class="col-md-6" style="border: lightgrey solid 1px;">
+
+       <center><label style="font-size:20px;color:darkgrey ">Profile Details</label> </center>
+       <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+            <a href="/Project/edit_profile/" style="text-decoration: none; color:black; width: 100%; float: right;" class="btn btn-sm btn-primary">Edit</a>
+         </div>
+          
+      </div>
+      <hr style="margin-top: 0px">
+       
+         
+        <div class="row">
+          <div class="col-md-3">
+           <label>Email id</b></label>
+          </div>
+          <div class="col-md-7">
+            : {{user_email}}
+          </div>
+        </div>
+
+
+        <div class="row" style="padding-top: 10px">
+          <div class="col-md-3">
+           <label>First Name</label>
+          </div>
+          <div class="col-md-7">
+            : {{user_fname}}
+          </div>
+        </div>
+
+        <div class="row"style="padding-top: 10px">
+          <div class="col-md-3">
+           <label>Last Name</label>
+          </div>
+          <div class="col-md-7">
+            : {{user_lname}}
+          </div>
+        </div>
+
+        <div class="row"style="padding-top: 10px">
+          <div class="col-md-3">
+           <label>SSN</label>
+          </div>
+          <div class="col-md-7">
+           : {{user_ssn}}
+          </div>
+        </div>
+         <div class="row"style="padding-top: 10px">
+          <div class="col-md-3">
+           <label>Mobile</label>
+          </div>
+          <div class="col-md-7">
+           : {{user_phone}}
+          </div>
+        </div>
+        <div class="row"style="padding-top: 10px">
+          <div class ="col-md-3">
+           <label>Address</label>
+          </div>
+          <div class="col-md-7">
+          : {{user_address}}
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+</div>
+</div>
+
+</div>
+	 
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+{% include "atrade/footer.html" %}

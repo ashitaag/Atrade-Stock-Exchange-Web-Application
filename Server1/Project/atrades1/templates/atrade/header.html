@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+
+  <title>Atrade</title>
+    {% load static %}
+
+
+
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+
+
+  <!-- Custom styles for this template -->
+    <link href="http://34.66.184.155/simple-sidebar.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+<link rel="stylesheets" href="http://34.66.184.155/datatables.min.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="http://34.66.184.155/datatables.min.js"></script>
+
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">{{ user_name }}</div>
+      <div class="list-group list-group-flush">
+        <br />
+        <a href="/Project/" class="list-group-item list-group-item-action bg-light"><i class="fas fa-home"></i> Home</a>
+        <a href="/Project/profile/" class="list-group-item list-group-item-action bg-light"><i class="fas fa-address-card"></i> Profile </a>
+        <a href="/Project/bank_accounts/" class="list-group-item list-group-item-action bg-light"><i class="fas fa-money-check-alt"></i> Saved Bank Details</a>
+        <a href="/Project/companies/" class="list-group-item list-group-item-action bg-light"><i class="fas fa-building"></i> Companies Details</a>
+        <a href="/Project/statastics/" class="list-group-item list-group-item-action bg-light"><i class="fas fa-chart-line"></i> Companies Statastics</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom navbar-top navbar-fixed">
+        <button class="btn btn-sm btn-info" id="menu-toggle">></button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/Project/cart/"><i class="fas fa-cart-plus"></i>Cart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Project/logout/"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            </li>
+            
+          </ul>
+        </div>
+      </nav>
+
+
+<script type="text/javascript">
+  /*
+  $(document).ready(function(){
+    $("#menu-toggle").click(function(){
+      $("#sidebar-wrapper").slideToggle();
+    });
+  });
+  */
+</script>

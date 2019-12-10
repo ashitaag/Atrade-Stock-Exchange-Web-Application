@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Custom Graph Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+    <!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+
+    <!-- JQuery -->
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        .centered {
+          z-index: 100;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          /* bring your own prefixes */
+          transform: translate(-50%, -50%);
+          display: none;
+        }
+
+        .col-md-3{
+            border: darkgray solid 2px;
+            border-radius: 5px;
+            text-align: center;
+            vertical-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center">{{ company_id }} - {{ company_name }}</h1>
+<hr/>
+<div class="container">
+    <div class="row" style="padding: 2px;">
+        <div class="col-md-3">
+            <strong>Price: </strong>{{ current_details.price }}
+        </div>
+        <div class="col-md-3">
+            <strong>Open: </strong>{{ current_details.open }}
+        </div>
+        <div class="col-md-3">
+            <strong>High: </strong>{{ current_details.high }}
+        </div>
+        <div class="col-md-3">
+            <strong>Low: </strong>{{ current_details.low }}
+        </div>
+    </div>
+        <div class="row" style="padding: 2px;">
+        <div class="col-md-3">
+            <strong>Volume: </strong>{{ current_details.volume }}
+        </div>
+        <div class="col-md-3">
+            <strong>Previous Close: </strong>{{ current_details.pc }}
+        </div>
+        <div class="col-md-3">
+            <strong>Latest Trading Day: </strong>{{ current_details.ltd }}
+        </div>
+        <div class="col-md-3">
+
+            <strong>Change: </strong>{{ current_details.change }}
+        </div>
+    </div>
+    <hr/>
+    <div class="row" style="">
+        <div class="" style="width: 75%;"></div>
+        <div class="" style="width: 25%; min-width: 200px;">
+            <select id="change-graph" class="form-control" style="float: right;">
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="history_graph" style="width: 100%; height: 500px;max-width: 100%;"></div>
+</div>
+<script>
+    $(document).ready(function(){
+
+        {% autoescape off %}
+            var rs_data = {{ current_history }};
+        {% endautoescape %}
+        myfun(rs_data);
+        
+        function myfun(rs_dt){
+            //alert(JSON.stringify(rs_dt));
+            rs_data = rs_dt;
+            n = rs_data.length;
+            if(n==0){
+                alert("No Data Available for the given Date Range");
+                return
+            }
+            google.charts.load('current', {'packages':['line']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart(){
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', 'Date');
+              data.addColumn('number', 'open');
+              data.addColumn('number', 'high');
+              data.addColumn('number', 'low');
+              data.addColumn('number', 'close');
+              dt = [];
+
+              for(var i=0;i<n;i++){
+                  dt.push([rs_data[i]["date"], rs_data[i]["open"], rs_data[i]["high"], rs_data[i]["low"], rs_data[i]["close"]]);
+              }
+              data.addRows(dt);
+
+            var options = {
+                chart: {
+                  title: ' Company Stock Details',
+                  subtitle: 'Price in USD'
+                },
+                hAxis: {
+                    textPosition: 'out',
+                    slantedText: 'true',
+                    slantedTextAngle: '90'
+                }
+
+              };
+
+            var chart = new google.charts.Line(document.getElementById('history_graph'));
+            chart.draw(data, google.charts.Line.convertOptions(options));
+            //stopLoader();
+          }
+          $(window).resize(function(){
+              drawChart();
+            });
+        }
+        
+        $("#change-graph").change(function () {
+            //startLoader();
+            var dtype = $(this).val();
+            var u = "http://157.245.247.159:8000/get_history/{{company_id}}/"+dtype+"/";
+            //alert("Sending Request to :"+u);
+            $.ajax({
+                type:"GET",
+                url: u,
+                success: myfun,
+                error: function(jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.status);
+                    }
+            });
+
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+{% include "atrade/header.html" %}
+
+<div class="container">
+<h1>Cart <small>Add/remove stocks</small></h1>
+<hr />
+
+{% if response_code == 1 %}
+	<h3>There is no item in the cart, Please add some stocks to buy....</h3>
+	<a href="/Project/companies/" class="btn btn-primary">View Companies</a>
+{% else %}
+
+<div class="container-fluid">
+	<div class="table"> 
+		<table>
+			<thead>
+				<tr>
+					<th>Company ID</th>
+					<th>Company Name</th>
+					<td>Current Price</td>
+					<th>Count of Stocks</th>
+					<th>Total Price</th>
+					<th>Remove</th>
+				</tr>
+			</thead>
+			<tbody id="mytbody">
+				{% for i in response_message %}
+				<tr>
+					<td>{{ i.company_id }}</td>
+					<td>{{ i.company_name }}</td>
+					<td>{{ i.current_price }}</td>
+					<td><input type="number" name="number" class="form-control change_val" value="1" min='1'></td>
+
+					<td>{{ i.current_price }}</td>
+					<td><button class="btn btn-sm btn-danger" attr="{{ i.company_id }}" onclick="removeFromCart('{{ i.company_id }}')"> Remove </button></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+
+		</table>
+	</div>
+	<hr>
+	<h3>Total Price: <span id="total_p">0</span></h3>
+	<form action="#" id="buy_form">
+		<div class="col-md-4">
+		
+	          <label>Select Bank Account to Buy From:</label>
+	          <select name="account_number" class="form-control" required="required" id="acc_num">
+	          	<option value="">Select Bank Account</option>
+	              {% for i in user_account %}
+	                  <option value="{{i.acc_number}}" myattr="{{ i.acc_balance }}">{{ i.acc_number }}</option>
+	              {% endfor %}
+	          </select>
+		    <hr>
+		    <input type="submit" name="submit" value="Buy Stocks" class="btn btn-lg btn-primary">
+		</div>
+	</form>
+</div>
+{% endif %}
+
+</div>
+<script type="text/javascript">
+
+	function removeFromCart(id){
+
+            var url1 = "/Project/delete_from_cart/";
+
+            $.ajax({
+                type: "POST",
+                url: url1,
+                data: {company_id: id},
+
+                success: function (response) {
+
+                    if (response["response_code"] == 0) {
+                        alert("Removed Successfully");
+                        window.location.href = "/Project/cart/";
+
+                    } else {
+                        alert("Error in Removal:" + response["response_message"]);
+                    }
+                }
+            });
+	}
+
+$(document).ready(function(){
+	update_total_price();
+    $("#buy_form").submit(function (e) {
+        e.preventDefault();
+        acc_balance = parseFloat($("#acc_num option:selected").attr("myattr"));
+        total_p = parseFloat($("#total_p").html());
+        if (acc_balance < total_p){
+        	alert("Amount Exceeded your account balance");
+        	return;
+        }
+		var count = $("#mytbody tr").length;
+		
+		mydt = [];
+
+		$( "#mytbody tr" ).each(function( index ) {
+		  console.log( index + ": " + $( this ).text() );
+		  obj = {
+		  	  company_id : $( this ).children().eq(0).html(),
+			  company_name : $( this ).children().eq(1).html(),
+			  current_price: $( this ).children().eq(2).html(),
+			  count : $( this ).children().eq(3).children().val(),
+			  total_price : $( this ).children().eq(4).html()
+		  }
+
+		  mydt.push(obj);
+		});
+		data = {
+			account_number : $("#acc_num").val(),
+			stocks : mydt,
+			total_price: parseFloat($("#total_p").html()),
+			count: mydt.length,
+			user_id: {{user_id}}
+		}
+		//alert("starting to buy, geting data from table; rows: "+mydt[0].company_name);
+
+        var url1 = "http://34.70.127.65/Project/buy_queue_stocks/?user_token={{ user_token }}";
+
+        $.ajax({
+            type: "POST",
+            url: url1,
+            data: data,
+
+            success: function (response) {
+
+                if (response["response_code"] == 0) {
+                    
+                    $.ajax({
+			            type: "GET",
+			            url: "/Project/clear_cart/",
+			            success: function(response){
+			            	window.location.href = "/Project/";
+			            }
+			        });
+                    
+
+                } else {
+                    alert("Error in stock purchase:" + response["response_message"]);
+                }
+            },
+
+            error: function(xhr, ajaxOptions, thrownError){
+            	alert("error Occurred: " + thrownError);
+            }
+
+
+        });
+
+
+
+	});
+
+	$(".change_val").keyup(function() {
+		//alert("changed");
+		console.log("changed to ");
+		count = parseInt($(this).val());
+
+		current_price = parseFloat($(this).parent().parent().children().eq(2).html());
+		console.log(current_price);
+		total_price = (count * current_price).toFixed(2);
+		console.log(total_price);
+		$(this).parent().parent().children().eq(4).html(total_price);
+		update_total_price();
+
+	});
+
+	function update_total_price(){
+		tot = 0;
+		$( "#mytbody tr" ).each(function( index ) {
+		  tot = tot + parseFloat($( this ).children().eq(4).html());
+		  tot.toFixed(2);
+		});
+		$("#total_p").html(""+tot.toFixed(2));
+	}
+
+});
+</script>
+
+{% include "atrade/footer.html" %}

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Atrade</title>
+    <meta name="google-signin-client_id" content="127241298967-337g2nml4imipk3uil2m7t593v7dglvj.apps.googleusercontent.com">
+	<!-- Font Awesome -->
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+
+	<!-- JQuery -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+</head>
+<body>
+
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark blue sticky-top">
+  <a class="navbar-brand" href="/">Atrade</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#login">
+          Login
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#signup">
+          Signup</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#contact_us">
+          Contact Us</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!--/.Navbar -->
+
+<div style="background-image: url('/bg.jpg'); background-size: 100% 100%; width: 100%; min-height: 100vh; margin: 0px;">
+	<div class="container-fluid" style="min-height: 100vh; width: 100%; background-color: rgba(255,255,255,0.5);">
+<br><br><br><br>
+	<center>
+		<h1>ATRADE</h1>
+		Keep Your Money Alive
+		<hr/>
+		<a href="#login" class="btn btn-lg btn-primary">Login Now</a>
+		<a href="#signup" class="btn btn-lg btn-success">Signup</a>
+	</center>
+	</div>
+	
+</div>
+
+
+
+<div style=" width: 100%; min-height: 100vh;padding-top: 2rem;padding-bottom: 2rem;" id="login">
+	<div class="container-fluid py-1 z-depth-1" style="max-width: 600px" style="margin-right: 10%; margin-left: 0px; ">
+
+		<!--Section: Content-->
+		<section class="px-md-5 text-center text-lg-left dark-grey-text" style="background-color: white;">
+
+		<!--Grid row-->
+			<div class="row d-flex justify-content-center" id="first">
+
+				<div class = "col-md-12">
+					<form class="text-center " action="#" id="login_form">
+
+					    <p class="h2 mb-5">Sign in</p>
+
+					    <!-- Email -->
+					    <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail" name="email">
+
+					    <!-- Password -->
+					    <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" name="password">
+
+					    
+					    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#basicExampleModal">
+                Forgot Password?
+              </button>
+
+              
+
+
+					    <!-- Sign in button -->
+					    <button class="btn  btn-block my-4" style="color:black;background-color: grey " type="submit">Sign in</button>
+					    
+					    <div id="my-signin2" style="margin-left:100px;"></div>
+					    
+
+					    <!-- Register -->
+					    <p>Not a member?
+					        <a href="#signup">Sign up</a>
+					    </p>
+						
+					</form>
+				</div>
+			</div>
+		</section>
+
+	</div>
+</div>
+<hr />
+
+
+<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>Enter Your Email ID</label>
+        <input type="email" name="email_id" class="form-control" id="email_id">
+        <br>
+        <button class="btn btn-primary" id="get_otp_btn">Reset Password</button>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="background-size: 100% 100%; width: 100%; min-height: 100vh; padding-top: 2rem; padding-bottom: 2rem;" id="signup">
+	<div class="container z-depth-1" style="max-width: 600px">
+
+ 
+    <!--Section: Content-->
+    <section class="px-md-5 text-center  dark-grey-text">
+
+
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center">
+
+        <!--Grid column-->
+        <div class="col-md-12">
+
+          <!-- Default form register -->
+          <form class="text-center" action="#" id = "signup_form" >
+              
+
+            <p class="h2 mb-5">Sign up</p>
+
+            <div class="form-row mb-2">
+              <div class="col-md-6">
+                <!-- First name -->
+                <input type="text" id="u_fname" class="form-control" placeholder="First name" name="user_fname">
+              </div>
+              <div class="col">
+                <!-- Last name -->
+                <input type="text" id="u_lname" class="form-control" placeholder="Last name" name="user_lname">
+              </div>
+            </div>
+
+            <!-- E-mail -->
+            <input type="email" id="u_email" class="form-control mb-4" placeholder="E-mail" name="user_email">
+
+            <!-- Password -->
+            <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password"
+              aria-describedby="defaultRegisterFormPasswordHelpBlock" name="user_password">
+            <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+              At least 8 characters
+            </small>
+            <input type="text" id="SSN" class="form-control mb-4" placeholder="Social Security Number"
+              aria-describedby="defaultRegisterFormPhoneHelpBlock" name="user_ssn" pattern="[0-9]{9}">
+            <!-- Phone number -->
+            <input type="number" id="defaultRegisterPhonePassword" class="form-control" placeholder="Phone number"
+              aria-describedby="defaultRegisterFormPhoneHelpBlock" name="user_phone">
+              <br>
+            <input type="text" id="defaultRegisterAddress" class="form-control" placeholder="Address"
+              aria-describedby="defaultRegisterFormPhoneHelpBlock" name="user_address">
+
+
+            <button class="btn btn-info my-4 btn-block" type="submit">Sign Up</button>
+
+            <hr>
+
+            <!-- Terms of service -->
+            <p>By clicking
+              <em>Sign up</em> you agree to our
+              <a href="" target="_blank">terms of service</a>
+          </p>
+          </form>
+
+          <!-- Default form register -->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+
+    </section>
+    <!--Section: Content-->
+
+
+  </div>
+
+</div>
+
+<hr>
+
+<div class="container-fluid" id="contact_us" style="padding-bottom: 2rem; padding-top: 2rem;">
+
+<center><h2>CONTACT US</h2>
+<h6>Email: admin@atrade.in</h6>
+<h6>Phone: +1 888 243 8989</h6>
+<h6>Address: 7421, Frankford Rd</h6>
+<h6>Dallas, TX, 75252</h6>
+
+</center>
+
+
+</div>
+
+
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/"> Atrade.com </a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+
+
+
+
+  <script>
+ready = 0;
+ $(document).ready(function(){
+
+
+function explode(){
+  //alert("after 5 seconds");
+  ready = 1;
+}
+setTimeout(explode, 5000);
+
+
+ });
+
+
+
+
+    function onSuccess(googleUser) {
+
+      if (ready == 0){
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+            console.log('User signed out.');
+          });
+          ready = 1;
+          return;
+      }
+
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+      
+      email1 = googleUser.getBasicProfile().getEmail();
+      
+      url1 = "/Project/google_login/"
+	   $.ajax({
+	        type: "POST",
+	        url: url1,
+	        data: {email: email1},
+	        success: function (response) {
+	            if (response["response_code"] == 0) {
+                 //alert("logged in as :"+response["user_name"]);
+	                window.location.href = "/Project/";
+	            } else {
+	                alert("Error : " + response["response_message"]);
+                    nm = googleUser.getBasicProfile().getName().split(" ")
+                    $("#u_fname").val(nm[0]);
+                    $("#u_lname").val(nm[1]);
+                    $("#u_email").val(googleUser.getBasicProfile().getEmail());
+                    window.location.href ="#signup";
+	            }
+	        },
+	        error: function(err){
+	            alert("error in request " + err.status + " " + err.statusText);
+	        }
+	    });
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 250,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+
+
+
+    }
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
+
+
+<script type="text/javascript">
+
+
+	
+$('a[href*="#"]').on('click', function(e) {
+  e.preventDefault()
+
+  $('html, body').animate(
+    {
+      scrollTop: $($(this).attr('href')).offset().top-55,
+    },
+    500,
+    'linear'
+  )
+});
+
+    $("#forgot").click(function(){
+       $("#first").hide();
+       $("#sec").show();
+
+    });
+    $("#sendotp").click(function(){
+       $("#sec").hide();
+       $("#third").show();
+
+    });
+
+    $("#login_form").submit(function(e) {
+
+        e.preventDefault();
+        var form = $(this);
+        var url1 = "/Project/check_login/";
+
+        $.ajax({
+            type: "POST",
+            url: url1,
+            data: form.serialize(),
+            success: function (response) {
+                if (response["response_code"] == 0) {
+                    window.location.href = "/Project/";
+                } else {
+                    alert("Error :" + response["response_message"]);
+
+
+                }
+            },
+            error: function(err){
+                alert("error in request " + err.status + " " + err.statusText);
+            }
+        });
+    });
+    $("#password_reset").submit(function(e) {
+
+        e.preventDefault();
+        var form = $(this);
+        var url1 = "http://127.0.0.1:8000/forgot_password/";
+
+        $.ajax({
+            type: "POST",
+            url: url1,
+            data: form.serialize(),
+            dataType: 'JSON',
+
+        });
+    });
+    $("#nextstep").submit(function(e) {
+
+        e.preventDefault();
+        var form = $(this);
+        var url1 = "http://127.0.0.1:8000/check_otp/";
+
+        $.ajax({
+            type: "POST",
+            url: url1,
+            data: form.serialize(),
+            dataType: 'JSON',
+            success: function (response) {
+
+                if (response["response_code"] == 0) {
+                    window.location.href = "/atrade";
+                } else {
+                    alert("Error :" + response["response_message"]);
+                }
+            }
+        });
+    });
+
+    $("#signup_form").submit(function(e) {
+
+    e.preventDefault();
+    var form = $(this);
+    var url1 = "http://34.70.127.65/Project/create_user/";
+
+    $.ajax({
+           type: "POST",
+           url: url1,
+           data: form.serialize(),
+           dataType: 'JSON',
+           success : function(response) {
+                if (response["response_code"] == 0) {
+                    alert("Signup is successful please login with your credentials")
+                    window.location.href = "#login";
+                }
+                else{
+                    alert("Error :"+ response["response_message"]);
+                }
+           },
+           error : function (e){
+            alert(e);
+           }
+         });
+
+
+});
+
+
+    $("#get_otp_btn").click(function(){
+    alert("clicked");
+    dt = { email_id: $("#email_id").val() }
+    var url1 = "/Project/send_otp/";
+
+    $.ajax({
+           type: "POST",
+           url: url1,
+           data: dt,
+           dataType: 'JSON',
+           success : function(response) {
+                if (response["response_code"] == 0) {
+                    alert("Your password is reset successfully, please check your registered email for new password, you can update your passsword in profile section.");
+                    window.location.href = "#login";
+                }
+                else{
+                    alert("Error :"+ response["response_message"]);
+                }
+           },
+           error : function (e){
+            alert(e);
+           }
+         });
+    });
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

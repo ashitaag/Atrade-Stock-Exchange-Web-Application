@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graph Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart(){
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Date');
+          data.addColumn('number', 'open');
+          data.addColumn('number', 'high');
+          data.addColumn('number', 'low');
+          data.addColumn('number', 'close');
+            {% autoescape off %}
+                data.addRows( {{ dt }} );
+            {% endautoescape %}
+
+
+
+        var options = {
+            chart: {
+              title: 'AA Company Stock Details',
+              subtitle: 'Price in USD'
+            },
+            hAxis: {
+                textPosition: 'out',
+                slantedText: 'true',
+                slantedTextAngle: '90'
+            }
+
+          };
+
+        var chart = new google.charts.Line(document.getElementById('curve_chart'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+      }
+    </script>
+</head>
+<body>
+<div id="curve_chart" style="width: 100%; height: 500px;"></div>
+</body>
+</html>

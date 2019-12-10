@@ -1,0 +1,164 @@
+{% include "atrade/header.html" %}
+
+    <style>
+        .centered {
+          z-index: 100;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          /* bring your own prefixes */
+          transform: translate(-50%, -50%);
+          display: none;
+        }
+    </style>
+
+<div class="centered" style="height: 100vh;width: 100vw;background-color: rgba(255,255,255,0.6)">
+    <img src="#" class="centered">
+</div>
+<h1 style="text-align: center">Custom Records</h1>
+<hr>
+<div class="container">
+    <form action="#" id="data_form">
+    <div class="row">
+
+        <div class="col-md-3">
+            <label for="company_id">Company ID</label>
+            <select class="form-control" id="company_id" name="company_id">
+                {% for company in companies %}
+                    <option value="{{ company.company_symbol }}">{{ company.company_symbol }} - {{ company.company_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="start_date">Start Date</label>
+            <input type="date" class="form-control" id="start_date"  min='1899-01-01' max='2000-13-13' required="required">
+        </div>
+        <div class="col-md-2">
+            <label for="end_date">End Date</label>
+            <input type="date" class="form-control" id="end_date"  min='1899-01-01' max='2000-13-13' required="required">
+        </div>
+        <div class="col-md-3">
+            <label for="data_type">Range</label>
+            <select class="form-control" id="data_type">
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-success" value="Get Stats">
+        </div>
+
+</div>
+         </form>
+    <hr/>
+    <div id="history_graph" style="width: 100%; height: 500px;max-width: 100%;"></div>
+</div>
+
+<a class="btn btn-lg btn-primary" href="#" id="buy_button" style="float: right;">Buy Stocks for this Company</a>
+
+<script type="application/javascript">
+var rs_data = [];
+    $(document).ready(function(){
+        $("#data_form").submit(function (e) {
+            e.preventDefault();
+            change_link();
+            startLoader();
+            var sd = $("#start_date").val().replace('-', '').replace('-', '');
+            var ed = $("#end_date").val().replace('-', '').replace('-', '');
+            var dtype = $("#data_type").val();
+            var company_id=$("#company_id").val();
+            var u = "http://34.70.127.65/Project/get_custom/"+company_id+"/"+dtype+"/"+sd+"/"+ed+"/?user_token={{ user_token }}";
+            //alert("Sending Request to :"+u);
+            $.ajax({
+                type:"GET",
+                url: u,
+                success: myfun,
+                error: function(jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.status);
+                        stopLoader();
+                    }
+            });
+        });
+
+        function myfun(rs_dt){
+            //alert(JSON.stringify(rs_dt));
+            rs_data = rs_dt;
+            n = rs_data.length;
+            if(n==0){
+                alert("No Data Available for the given Date Range");
+                stopLoader();
+                return
+            }
+            google.charts.load('current', {'packages':['line']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart(){
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', 'Date');
+              data.addColumn('number', 'open');
+              data.addColumn('number', 'high');
+              data.addColumn('number', 'low');
+              data.addColumn('number', 'close');
+              dt = [];
+
+              for(var i=0;i<n;i++){
+                  dt.push([rs_data[i]["date"], rs_data[i]["open"], rs_data[i]["high"], rs_data[i]["low"], rs_data[i]["close"]]);
+              }
+              data.addRows(dt);
+
+            var options = {
+                chart: {
+                  title: $("#company_id").val()+' Company Stock Details',
+                  subtitle: 'Price in USD'
+                },
+                hAxis: {
+                    textPosition: 'out',
+                    slantedText: 'true',
+                    slantedTextAngle: '90'
+                }
+
+              };
+
+            var chart = new google.charts.Line(document.getElementById('history_graph'));
+
+            chart.draw(data, google.charts.Line.convertOptions(options));
+            stopLoader();
+          }
+          $(window).resize(function(){
+          drawChart();
+        });
+            }
+
+            function startLoader() {
+                $(".centered").css("display","block");
+            }
+            function stopLoader() {
+                $(".centered").css("display","none");
+            }
+    });
+
+    function change_link(){
+        var link_base = "/Project/company/"+$("#company_id"). children("option:selected").val()+"/";
+        $("#buy_button").attr("href", link_base);
+    }
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("end_date").setAttribute("max", today);
+    document.getElementById("start_date").setAttribute("max", today);
+
+</script>
+
+
+{% include "atrade/footer.html" %}
