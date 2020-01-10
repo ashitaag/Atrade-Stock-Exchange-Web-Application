@@ -53,3 +53,4 @@ Important Notes:
 - In future, the key provided by google for single signon might expire, hence it will be better that while setting up this project, you create your own authentication key and then set up the project.
 - The email id and password setup must be done to make reset password functionality work.
 - It is also necessary that you create your own AlphaVantage API key from the website, it is free and use that key in server 03 for seemless experience.
+ 
